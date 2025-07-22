@@ -2,18 +2,27 @@ import { useUser } from '@clerk/clerk-react'
 import React, { useEffect, useState } from 'react'
 import { dummyPublishedCreationData } from '../assets/assets'
 import { Heart } from 'lucide-react'
+import axios from 'axios'
+
+
+axios.defaults.baseURL=import.meta.env.VITE_BASE_URL;
 
 const Community = () => {
   const[creations,setCreations]=useState([])
   const {user}=useUser()
+  const[loading,setLoading]=useState(true)
+
+  const {getToken}=useAuth()
+
   const fetchCreations=async()=>{
     setCreations(dummyPublishedCreationData)
-  }
+   
   useEffect(()=>{
     if(user){
       fetchCreations()
     }
   },[user])
+}
 
   return (
    <div className='flex-1 h-full flex flex-col gap-4 p-6'>
